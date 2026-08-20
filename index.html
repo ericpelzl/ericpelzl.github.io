@@ -480,6 +480,7 @@ const PUBLICATIONS = [
     type: "journal",
     doi: "https://doi.org/10.1371/journal.pone.0356597",
     openAccess: true,
+    osf: "https://doi.org/10.17605/OSF.IO/7FJBD",
     bibtex: `@article{pelzl2026sandhi,
   author  = {Pelzl, Eric and Tatsumi, Yuka and Cui, Zhisheng and Viswanathan, Navin and Olmstead, Annie J.},
   title   = {Studying Mandarin tone sandhi in interaction},
@@ -516,6 +517,7 @@ const PUBLICATIONS = [
     type: "journal",
     doi: "https://doi.org/10.3758/s13423-025-02646-0",
     openAccess: true,
+    osf: "https://doi.org/10.17605/OSF.IO/5B7YN",
     bibtex: `@article{pelzl2025hvot,
   author  = {Pelzl, Eric},
   title   = {High variability orthographic training: Learning words in a logographic script through training with multiple typefaces},
@@ -534,6 +536,7 @@ const PUBLICATIONS = [
     type: "journal",
     doi: "https://doi.org/10.1017/S0272263124000457",
     openAccess: true,
+    osf: "https://doi.org/10.17605/OSF.IO/XB8U3",
     bibtex: `@article{pelzl2024replication,
   author  = {Pelzl, Eric and Jo{\\'n}czyk, Rafa{\\l} and van Hell, Janet G.},
   title   = {Second language knowledge can influence native language performance in exclusively native contexts: An approximate replication of {Van Hell} \\& {Dijkstra} (2002)},
@@ -580,6 +583,7 @@ const PUBLICATIONS = [
     type: "journal",
     doi: "https://doi.org/10.1016/j.wocn.2022.101197",
     authorsVersion: "pdfs/2022-Pelzl-Liu-Qi-Phonetics-AM.pdf",
+    osf: "https://doi.org/10.17605/OSF.IO/HQV3U"
     bibtex: `@article{pelzl2022native,
   author  = {Pelzl, Eric and Liu, Jiang and Qi, Chunhong},
   title   = {Native language experience with tones influences both phonetic and lexical processes when acquiring a second tonal language},
@@ -598,6 +602,7 @@ const PUBLICATIONS = [
     type: "journal",
     doi: "https://doi.org/10.1017/S027226312000039X",
     authorsVersion: "pdfs/2021-Pelzl-et-al-SSLA_AM.pdf",
+    osf: "https://doi.org/10.17605/OSF.IO/VE6PZ",
     bibtex: `@article{pelzl2021bestcase,
   author  = {Pelzl, Eric and Lau, Ellen F. and Guo, Taomei and DeKeyser, Robert},
   title   = {Even in the best-case scenario {L2} learners have persistent difficulty perceiving and utilizing tones in {Mandarin}: Findings from behavioral and {ERP} experiments},
@@ -617,6 +622,7 @@ const PUBLICATIONS = [
     type: "journal",
     doi: "https://www.frontiersin.org/articles/10.3389/fcomm.2021.689423/full",
     openAccess: true,
+    osf: "https://doi.org/10.17605/OSF.IO/3AUE9",
     bibtex: `@article{pelzl2021picture,
   author  = {Pelzl, Eric and Lau, Ellen F. and Guo, Taomei and DeKeyser, Robert M.},
   title   = {Advanced second language learners of {Mandarin} show persistent deficits for lexical tone encoding in picture-to-word form matching},
@@ -635,6 +641,7 @@ const PUBLICATIONS = [
     type: "journal",
     doi: "https://doi.org/10.1111/lang.12438",
     authorsVersion: "pdfs/2021-Pelzl-et-al-LL_AM.pdf",
+    osf: "https://doi.org/10.17605/OSF.IO/VYSX7"
     bibtex: `@article{pelzl2021toneerrors,
   author  = {Pelzl, Eric and Lau, Ellen F. and Jackson, Scott R. and Guo, Taomei and Gor, Kira},
   title   = {Behavioral and neural responses to tone errors in foreign-accented {Mandarin}},
@@ -842,6 +849,11 @@ function render() {
       }
       if (pub.doi) {
         linksHtml += '<a class="pub-link" href="' + escapeHtml(safeUrl(pub.doi)) + '" target="_blank" rel="noopener noreferrer">DOI / Link</a>';
+      }
+      if (pub.osf) {
+        links.push(
+          '<a href="' + pub.osf + '" target="_blank" rel="noopener">[Data &amp; Materials]</a>'
+          );
       }
       if (pub.bibtex) {
         linksHtml += '<button class="pub-link bibtex-toggle" type="button">BibTeX</button>';
