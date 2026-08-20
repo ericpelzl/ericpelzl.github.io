@@ -851,9 +851,7 @@ function render() {
         linksHtml += '<a class="pub-link" href="' + escapeHtml(safeUrl(pub.doi)) + '" target="_blank" rel="noopener noreferrer">DOI / Link</a>';
       }
       if (pub.osf) {
-        links.push(
-          '<a href="' + pub.osf + '" target="_blank" rel="noopener">[Data &amp; Materials]</a>'
-          );
+        linksHtml += '<a class="pub-link" href="' + escapeHtml(safeUrl(pub.osf)) + '" target="_blank" rel="noopener noreferrer">Data &amp; Materials</a>';
       }
       if (pub.bibtex) {
         linksHtml += '<button class="pub-link bibtex-toggle" type="button">BibTeX</button>';
