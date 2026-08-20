@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<!--
+  =====================================================================
+  PERSONAL ACADEMIC WEBPAGE — Eric Pelzl
+  =====================================================================
+  HOW TO MAINTAIN THIS PAGE:
+
+  1. PUBLICATIONS: Scroll down to the <script> tag near the bottom and
+     find the array called PUBLICATIONS. Each publication is an object:
+
+       {
+         title:   "Paper title",
+         authors: "Pelzl, E., Coauthor, A.",
+         venue:   "Journal Name. 12(3), 1-20",
+         year:    2025,            // use the string "forthcoming" if needed
+         type:    "journal",       // "journal", "chapter", or "other"
+         doi:     "https://doi.org/...",       // optional
+         pdf:     "papers/mypaper.pdf",        // optional, open-access PDF
+         authorsVersion: "pdfs/my-paper.pdf",  // optional, your own copy
+         bibtex:  "@article{...}"              // optional
+       }
+
+     To add a paper, copy an existing object, paste it anywhere in the
+     array, and edit the fields. Grouping and sorting are automatic.
+
+  2. AUTHOR'S VERSION PDFs: Create a folder named "pdfs" in the same
+     place as this file (e.g., in your GitHub Pages repository) and put
+     your author-version PDFs there. Then make sure each publication's
+     authorsVersion path matches the real file name. You can also paste
+     a full URL (e.g., "https://puzzl-e/ericpelzl/pdfs/paper.pdf").
+
+  3. EMAIL: Search this file for "EMAIL SETTINGS" and edit the two
+     variables (emailUser and emailDomain). The address is split into
+     pieces and assembled by JavaScript so spam bots scanning the raw
+     HTML cannot easily harvest it.
+
+  4. PHOTO: Place a square-ish image named "photo.jpg" in the same
+     folder as this file. If missing, a monogram is shown instead.
+
+  5. LAST UPDATED: Search for "last-updated" and edit the date.
+
+  SECURITY NOTES (no action needed, just so you know):
+  - The Content-Security-Policy meta tag below blocks all external
+    scripts, styles, images, and fonts. Do not remove it. If you ever
+    want to add an image hosted on another site, you would need to add
+    that site to the img-src list.
+  - All external links open with rel="noopener noreferrer".
+  - All publication data is HTML-escaped before display.
+  - On GitHub: enable two-factor authentication on your account. That
+    is the most important protection for this page.
+  =====================================================================
+-->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- SECURITY: block all external resources; only same-folder images and
+     the inline styles/scripts in this file are allowed to run/load. -->
+<meta http-equiv="Content-Security-Policy"
+      content="default-src 'none'; img-src 'self'; style-src 'unsafe-inline'; script-src 'unsafe-inline'; base-uri 'none'; form-action 'none'">
+
+<!-- SECURITY: limit referrer information sent to other sites. -->
+<meta name="referrer" content="strict-origin-when-cross-origin">
+
+<title>Eric Pelzl — Language Science &amp; Technology, PolyU</title>
+<style>
+  :root {
+    --accent: #1f3a5f;        /* navy blue */
+    --accent-light: #eef2f7;
+    --accent-mid: #4a6a95;
+    --text: #26292e;
+    --text-soft: #5b6470;
+    --border: #e2e6ec;
+    --bg: #fcfcfd;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: Georgia, "Times New Roman", serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.65;
+    font-size: 17px;
+  }
+
+  .container {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 1.25rem;
+  }
+
+  /* ---------- Header ---------- */
+  header {
+    background: #fff;
+    border-bottom: 3px solid var(--accent);
+    padding: 3rem 0 2.5rem;
+  }
+
+  .header-inner {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .photo-wrap {
+    flex-shrink: 0;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid var(--accent-light);
+    box-shadow: 0 2px 8px rgba(31,58,95,.12);
+    background: var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .photo-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .photo-fallback {
+    color: #fff;
+    font-size: 3rem;
+    letter-spacing: .05em;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    display: none;
+  }
+
+  .header-text h1 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: -.01em;
+    margin-bottom: .35rem;
+  }
+
+  .header-text .position {
+    font-size: 1.05rem;
+    color: var(--text-soft);
+    max-width: 34rem;
+    margin-bottom: .9rem;
+  }
+
+  .links {
+    display: flex;
+    gap: .6rem;
+    flex-wrap: wrap;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    font-size: .85rem;
+  }
+
+  .links a {
+    text-decoration: none;
+    color: var(--accent);
+    border: 1px solid var(--accent-mid);
+    border-radius: 4px;
+    padding: .3rem .75rem;
+    transition: background .15s, color .15s;
+  }
+
+  .links a:hover {
+    background: var(--accent);
+    color: #fff;
+  }
+
+  /* ---------- Sections ---------- */
+  main { padding: 2.5rem 0 1rem; }
+
+  section { margin-bottom: 3rem; }
+
+  h2 {
+    font-size: 1.45rem;
+    color: var(--accent);
+    border-bottom: 2px solid var(--border);
+    padding-bottom: .4rem;
+    margin-bottom: 1.2rem;
+    letter-spacing: .01em;
+  }
+
+  .about p { max-width: 46rem; }
+
+  /* ---------- Publication controls ---------- */
+  .controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .75rem;
+    align-items: center;
+    margin-bottom: 1.75rem;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  }
+
+  #search-box {
+    flex: 1 1 240px;
+    padding: .55rem .8rem;
+    font-size: .95rem;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: #fff;
+    color: var(--text);
+  }
+
+  #search-box:focus {
+    outline: none;
+    border-color: var(--accent-mid);
+    box-shadow: 0 0 0 3px rgba(31,58,95,.12);
+  }
+
+  .filter-group { display: flex; gap: .4rem; flex-wrap: wrap; }
+
+  .filter-btn {
+    font-size: .82rem;
+    padding: .4rem .85rem;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    background: #fff;
+    color: var(--text-soft);
+    cursor: pointer;
+    transition: all .15s;
+  }
+
+  .filter-btn:hover { border-color: var(--accent-mid); color: var(--accent); }
+
+  .filter-btn.active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+  }
+
+  /* ---------- Publication list ---------- */
+  .year-group { margin-bottom: 1.8rem; }
+
+  .year-heading {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--accent-mid);
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    margin-bottom: .8rem;
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+  }
+
+  .year-heading::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .pub {
+    padding: .9rem 1rem;
+    margin-bottom: .6rem;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent-mid);
+    border-radius: 4px;
+  }
+
+  .pub-title { font-weight: 700; margin-bottom: .15rem; }
+
+  .pub-authors { font-size: .95rem; color: var(--text-soft); }
+
+  .pub-authors .me { font-weight: 700; color: var(--text); }
+
+  .pub-venue { font-size: .95rem; font-style: italic; color: var(--text-soft); }
+
+  .pub-meta {
+    margin-top: .5rem;
+    display: flex;
+    gap: .45rem;
+    flex-wrap: wrap;
+    align-items: center;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  }
+
+  .type-tag {
+    font-size: .7rem;
+    text-transform: uppercase;
+    letter-spacing: .07em;
+    padding: .15rem .55rem;
+    border-radius: 999px;
+    background: var(--accent-light);
+    color: var(--accent);
+  }
+
+  .oa-tag {
+    font-size: .7rem;
+    text-transform: uppercase;
+    letter-spacing: .07em;
+    padding: .15rem .55rem;
+    border-radius: 999px;
+    background: #e8f3ea;
+    color: #2c6b3a;
+  }
+
+  .pub-link {
+    font-size: .78rem;
+    text-decoration: none;
+    color: var(--accent);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: .18rem .55rem;
+    background: #fff;
+    cursor: pointer;
+    transition: all .15s;
+  }
+
+  .pub-link:hover { border-color: var(--accent); background: var(--accent-light); }
+
+  .bibtex-block {
+    display: none;
+    margin-top: .7rem;
+    position: relative;
+  }
+
+  .bibtex-block.open { display: block; }
+
+  .bibtex-block pre {
+    background: #f4f6f9;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: .8rem 1rem;
+    font-size: .78rem;
+    line-height: 1.5;
+    overflow-x: auto;
+    white-space: pre-wrap;
+    word-break: break-word;
+    font-family: "SF Mono", Consolas, Menlo, monospace;
+  }
+
+  .copy-btn {
+    position: absolute;
+    top: .5rem;
+    right: .5rem;
+    font-size: .72rem;
+    padding: .2rem .6rem;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    background: #fff;
+    color: var(--accent);
+    cursor: pointer;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  }
+
+  .copy-btn:hover { background: var(--accent-light); }
+
+  #no-results {
+    display: none;
+    color: var(--text-soft);
+    font-style: italic;
+    padding: 1rem 0;
+  }
+
+  /* ---------- Footer ---------- */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 1.5rem 0 2.5rem;
+    font-size: .85rem;
+    color: var(--text-soft);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    text-align: center;
+  }
+
+  /* ---------- Mobile ---------- */
+  @media (max-width: 600px) {
+    body { font-size: 16px; }
+    header { padding: 2rem 0 1.75rem; }
+    .header-inner { flex-direction: column; text-align: center; }
+    .header-text h1 { font-size: 1.7rem; }
+    .links { justify-content: center; }
+    .photo-wrap { width: 120px; height: 120px; }
+    .controls { flex-direction: column; align-items: stretch; }
+    .filter-group { justify-content: center; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container header-inner">
+    <div class="photo-wrap">
+      <img src="photo.jpg" alt="Photo of Eric Pelzl"
+           onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+      <span class="photo-fallback">EP</span>
+    </div>
+    <div class="header-text">
+      <h1>Eric Pelzl</h1>
+      <p class="position">Assistant Professor, Department of Language Science and Technology, The Hong Kong Polytechnic University</p>
+      <div class="links">
+        <a href="https://scholar.google.com/citations?user=bTfqrRcAAAAJ&amp;hl=en" target="_blank" rel="noopener noreferrer">Google Scholar</a>
+        <a href="https://orcid.org/0000-0001-8335-8814" target="_blank" rel="noopener noreferrer">ORCID</a>
+        <!-- The email link is inserted here by JavaScript (anti-spam). -->
+        <a href="#" id="email-link" style="display:none;">Email</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="container">
+
+  <section class="about">
+    <h2>About</h2>
+    <p>
+      I am a psycholinguist who studies issues related to second language learning and
+      bilingualism, especially involving Chinese languages. Once upon a time, I learned
+      and taught Mandarin as a second language, an experience that has deeply influenced
+      my research interests. I focus on questions related to lexical tones and Chinese
+      characters. My research uses a variety of behavioral and neurophysiological (ERP)
+      methods.
+    </p>
+  </section>
+
+  <section class="publications">
+    <h2>Publications</h2>
+
+    <div class="controls">
+      <input type="text" id="search-box" placeholder="Search by title, author, or venue…" aria-label="Search publications">
+      <div class="filter-group" id="filter-group">
+        <button class="filter-btn active" data-type="all">All</button>
+        <button class="filter-btn" data-type="journal">Journal Articles</button>
+        <button class="filter-btn" data-type="chapter">Book Chapters</button>
+        <button class="filter-btn" data-type="other">Other</button>
+      </div>
+    </div>
+
+    <div id="pub-list"></div>
+    <p id="no-results">No publications match your search.</p>
+  </section>
+
+</main>
+
+<footer>
+  <div class="container">
+    <span id="last-updated">Last updated: August 20, 2026</span>
+  </div>
+</footer>
+
+<script>
+"use strict";
+
+/* =====================================================================
+   EMAIL SETTINGS (anti-spam):
+   Edit the two variables below. The full address is assembled only
+   when the page runs in a browser, so bots scraping the raw HTML
+   source will not find a complete email address.
+   ===================================================================== */
+const emailUser = "eric.pelzl";        // the part before the @
+const emailDomain = "polyu.edu.hk";    // the part after the @
+
+/* =====================================================================
+   EDIT YOUR PUBLICATIONS HERE.
+   Fields: title, authors, venue, year (number or "forthcoming"),
+   type ("journal" | "chapter" | "other"),
+   doi (optional URL), openAccess (true if the DOI leads to a free copy),
+   pdf (optional open-access PDF path/URL),
+   authorsVersion (optional path/URL to your own author-version PDF),
+   bibtex (optional string).
+
+   AUTHOR'S VERSION FILES: place PDFs in a folder named "pdfs" next to
+   this file, and make each authorsVersion path match the file name.
+   ===================================================================== */
+const PUBLICATIONS = [
+  {
+    title: "Studying Mandarin tone sandhi in interaction",
+    authors: "Pelzl, E., Tatsumi, Y., Cui, Z., Viswanathan, N., Olmstead, A. J.",
+    venue: "PLOS ONE, 21(8), e0356597",
+    year: 2026,
+    type: "journal",
+    doi: "https://doi.org/10.1371/journal.pone.0356597",
+    openAccess: true,
+    bibtex: `@article{pelzl2026sandhi,
+  author  = {Pelzl, Eric and Tatsumi, Yuka and Cui, Zhisheng and Viswanathan, Navin and Olmstead, Annie J.},
+  title   = {Studying Mandarin tone sandhi in interaction},
+  journal = {PLOS ONE},
+  year    = {2026},
+  volume  = {21},
+  number  = {8},
+  pages   = {e0356597},
+  doi     = {10.1371/journal.pone.0356597}
+}`
+  },
+  {
+    title: "L2 Tone Learning",
+    authors: "Pelzl, E.",
+    venue: "In C. A. Chapelle (Ed.), The Encyclopedia of Applied Linguistics. Wiley",
+    year: 2026,
+    type: "other",
+    bibtex: `@incollection{pelzl2026l2tone,
+  author    = {Pelzl, Eric},
+  title     = {L2 Tone Learning},
+  booktitle = {The Encyclopedia of Applied Linguistics},
+  editor    = {Chapelle, Carol A.},
+  publisher = {Wiley},
+  year      = {2026}
+}`
+  },
+  {
+    title: "High variability orthographic training: Learning words in a logographic script through training with multiple typefaces",
+    authors: "Pelzl, E.",
+    venue: "Psychonomic Bulletin & Review, 32, 2090–2103",
+    year: 2025,
+    type: "journal",
+    doi: "https://doi.org/10.3758/s13423-025-02646-0",
+    openAccess: true,
+    bibtex: `@article{pelzl2025hvot,
+  author  = {Pelzl, Eric},
+  title   = {High variability orthographic training: Learning words in a logographic script through training with multiple typefaces},
+  journal = {Psychonomic Bulletin \\& Review},
+  year    = {2025},
+  volume  = {32},
+  pages   = {2090--2103},
+  doi     = {10.3758/s13423-025-02646-0}
+}`
+  },
+  {
+    title: "Second language knowledge can influence native language performance in exclusively native contexts: An approximate replication of Van Hell & Dijkstra (2002)",
+    authors: "Pelzl, E., Jończyk, R., van Hell, J. G.",
+    venue: "Studies in Second Language Acquisition",
+    year: 2024,
+    type: "journal",
+    doi: "https://doi.org/10.1017/S0272263124000457",
+    openAccess: true,
+    bibtex: `@article{pelzl2024replication,
+  author  = {Pelzl, Eric and Jo{\\'n}czyk, Rafa{\\l} and van Hell, Janet G.},
+  title   = {Second language knowledge can influence native language performance in exclusively native contexts: An approximate replication of {Van Hell} \\& {Dijkstra} (2002)},
+  journal = {Studies in Second Language Acquisition},
+  year    = {2024}
+}`
+  },
+  {
+    title: "A few thoughts on how to learn a few thousand characters",
+    authors: "Pelzl, E.",
+    venue: "In C. Chu, M. Coss, & P. N. Zhang (Eds.), Transforming L2 Hanzi Teaching and Learning in the Age of Digital Writing (电写时代汉字教学的理论与实践). Routledge",
+    year: 2024,
+    type: "chapter",
+    authorsVersion: "pdfs/pelzl-2024-hanzi-chapter.pdf",
+    bibtex: `@incollection{pelzl2024characters,
+  author    = {Pelzl, Eric},
+  title     = {A few thoughts on how to learn a few thousand characters},
+  booktitle = {Transforming L2 Hanzi Teaching and Learning in the Age of Digital Writing},
+  editor    = {Chu, Chengzhi and Coss, Michael and Zhang, Phyllis N.},
+  publisher = {Routledge},
+  year      = {2024}
+}`
+  },
+  {
+    title: "Using time-based encephalography to investigate second language",
+    authors: "Dickson, D. S., Pelzl, E.",
+    venue: "In K. Morgan-Short & J. van Hell (Eds.), The Routledge Handbook of Second Language Acquisition and Neurolinguistics (pp. 17–30). Routledge",
+    year: 2023,
+    type: "chapter",
+    authorsVersion: "pdfs/dickson-pelzl-2023-eeg-chapter.pdf",
+    bibtex: `@incollection{dickson2023eeg,
+  author    = {Dickson, Danielle S. and Pelzl, Eric},
+  title     = {Using time-based encephalography to investigate second language},
+  booktitle = {The Routledge Handbook of Second Language Acquisition and Neurolinguistics},
+  editor    = {Morgan-Short, Kara and van Hell, Janet},
+  publisher = {Routledge},
+  year      = {2023},
+  pages     = {17--30}
+}`
+  },
+  {
+    title: "Native language experience with tones influences both phonetic and lexical processes when acquiring a second tonal language",
+    authors: "Pelzl, E., Liu, J., Qi, C.",
+    venue: "Journal of Phonetics, 95, 101197",
+    year: 2022,
+    type: "journal",
+    doi: "https://doi.org/10.1016/j.wocn.2022.101197",
+    authorsVersion: "pdfs/pelzl-2022-jphon.pdf",
+    bibtex: `@article{pelzl2022native,
+  author  = {Pelzl, Eric and Liu, Jiang and Qi, Chunhong},
+  title   = {Native language experience with tones influences both phonetic and lexical processes when acquiring a second tonal language},
+  journal = {Journal of Phonetics},
+  year    = {2022},
+  volume  = {95},
+  pages   = {101197},
+  doi     = {10.1016/j.wocn.2022.101197}
+}`
+  },
+  {
+    title: "Even in the best-case scenario L2 learners have persistent difficulty perceiving and utilizing tones in Mandarin: Findings from behavioral and ERP experiments",
+    authors: "Pelzl, E., Lau, E., Guo, T., DeKeyser, R.",
+    venue: "Studies in Second Language Acquisition, 43(2), 268–296",
+    year: 2021,
+    type: "journal",
+    doi: "https://doi.org/10.1017/S027226312000039X",
+    authorsVersion: "pdfs/pelzl-2021-ssla-bestcase.pdf",
+    bibtex: `@article{pelzl2021bestcase,
+  author  = {Pelzl, Eric and Lau, Ellen F. and Guo, Taomei and DeKeyser, Robert},
+  title   = {Even in the best-case scenario {L2} learners have persistent difficulty perceiving and utilizing tones in {Mandarin}: Findings from behavioral and {ERP} experiments},
+  journal = {Studies in Second Language Acquisition},
+  year    = {2021},
+  volume  = {43},
+  number  = {2},
+  pages   = {268--296},
+  doi     = {10.1017/S027226312000039X}
+}`
+  },
+  {
+    title: "Advanced second language learners of Mandarin show persistent deficits for lexical tone encoding in picture-to-word form matching",
+    authors: "Pelzl, E., Lau, E., Guo, T., DeKeyser, R.",
+    venue: "Frontiers in Communication, 6, 117",
+    year: 2021,
+    type: "journal",
+    doi: "https://www.frontiersin.org/articles/10.3389/fcomm.2021.689423/full",
+    openAccess: true,
+    bibtex: `@article{pelzl2021picture,
+  author  = {Pelzl, Eric and Lau, Ellen F. and Guo, Taomei and DeKeyser, Robert M.},
+  title   = {Advanced second language learners of {Mandarin} show persistent deficits for lexical tone encoding in picture-to-word form matching},
+  journal = {Frontiers in Communication},
+  year    = {2021},
+  volume  = {6},
+  pages   = {117},
+  doi     = {10.3389/fcomm.2021.689423}
+}`
+  },
+  {
+    title: "Behavioral and neural responses to tone errors in foreign-accented Mandarin",
+    authors: "Pelzl, E., Lau, E. F., Jackson, S. R., Guo, T., Gor, K.",
+    venue: "Language Learning, 71(2), 414–452",
+    year: 2021,
+    type: "journal",
+    doi: "https://doi.org/10.1111/lang.12438",
+    authorsVersion: "pdfs/pelzl-2021-langlearning.pdf",
+    bibtex: `@article{pelzl2021toneerrors,
+  author  = {Pelzl, Eric and Lau, Ellen F. and Jackson, Scott R. and Guo, Taomei and Gor, Kira},
+  title   = {Behavioral and neural responses to tone errors in foreign-accented {Mandarin}},
+  journal = {Language Learning},
+  year    = {2021},
+  volume  = {71},
+  number  = {2},
+  pages   = {414--452},
+  doi     = {10.1111/lang.12438}
+}`
+  },
+  {
+    title: "Tuning out tone errors? Native listeners do not down-weight tones when hearing unsystematic tone errors in foreign-accented Mandarin",
+    authors: "Pelzl, E., Carlson, M. T., Guo, T., Jackson, C. N., van Hell, J. G.",
+    venue: "Bilingualism: Language and Cognition, 24(1), 215–222",
+    year: 2021,
+    type: "journal",
+    doi: "https://doi.org/10.1017/S1366728920000280",
+    authorsVersion: "pdfs/pelzl-2021-blc-tuning.pdf",
+    bibtex: `@article{pelzl2021tuning,
+  author  = {Pelzl, Eric and Carlson, Matthew T. and Guo, Taomei and Jackson, Carrie N. and van Hell, Janet G.},
+  title   = {Tuning out tone errors? {Native} listeners do not down-weight tones when hearing unsystematic tone errors in foreign-accented {Mandarin}},
+  journal = {Bilingualism: Language and Cognition},
+  year    = {2021},
+  volume  = {24},
+  number  = {1},
+  pages   = {215--222},
+  doi     = {10.1017/S1366728920000280}
+}`
+  },
+  {
+    title: "Foreign-accent in second language Mandarin Chinese",
+    authors: "Pelzl, E.",
+    venue: "In C. Yang (Ed.), The acquisition of Chinese as a second language pronunciation: Segments and prosody (pp. 257–279). Springer",
+    year: 2021,
+    type: "chapter",
+    authorsVersion: "pdfs/pelzl-2021-accent-chapter.pdf",
+    bibtex: `@incollection{pelzl2021accent,
+  author    = {Pelzl, Eric},
+  title     = {Foreign-accent in second language {Mandarin Chinese}},
+  booktitle = {The Acquisition of Chinese as a Second Language Pronunciation: Segments and Prosody},
+  editor    = {Yang, Chunsheng},
+  publisher = {Springer},
+  address   = {Singapore},
+  year      = {2021},
+  pages     = {257--279}
+}`
+  },
+  {
+    title: "What makes perception of Mandarin tones difficult for second language learners: A non-technical review of evidence from psycholinguistic research",
+    authors: "Pelzl, E.",
+    venue: "Chinese as a Second Language, 54(1), 51–78",
+    year: 2019,
+    type: "journal",
+    doi: "https://doi.org/10.1075/csl.18009.pel",
+    authorsVersion: "pdfs/pelzl-2019-csl-review.pdf",
+    bibtex: `@article{pelzl2019review,
+  author  = {Pelzl, Eric},
+  title   = {What makes perception of {Mandarin} tones difficult for second language learners: A non-technical review of evidence from psycholinguistic research},
+  journal = {Chinese as a Second Language},
+  year    = {2019},
+  volume  = {54},
+  number  = {1},
+  pages   = {51--78},
+  doi     = {10.1075/csl.18009.pel}
+}`
+  },
+  {
+    title: "Advanced second language learners' perception of lexical tone contrasts",
+    authors: "Pelzl, E., Lau, E., Guo, T., DeKeyser, R.",
+    venue: "Studies in Second Language Acquisition, 41(1), 59–86",
+    year: 2019,
+    type: "journal",
+    doi: "https://doi.org/10.1017/S0272263117000444",
+    authorsVersion: "pdfs/pelzl-2019-ssla-perception.pdf",
+    bibtex: `@article{pelzl2019perception,
+  author  = {Pelzl, Eric and Lau, Ellen F. and Guo, Taomei and DeKeyser, Robert},
+  title   = {Advanced second language learners' perception of lexical tone contrasts},
+  journal = {Studies in Second Language Acquisition},
+  year    = {2019},
+  volume  = {41},
+  number  = {1},
+  pages   = {59--86},
+  doi     = {10.1017/S0272263117000444}
+}`
+  },
+  {
+    title: "Linguistic Correlates of Proficiency (LCP): At the intersection of testing and teaching",
+    authors: "Cook, S. V., Sweet, S. J., Lancaster, A., Pandža, N. B., Jackson, S. R., Pelzl, E., Gor, K., Doughty, C. J.",
+    venue: "In J. M. Davis et al. (Eds.), Useful Assessment and Evaluation in Language Education. Georgetown University Press",
+    year: 2018,
+    type: "chapter",
+    authorsVersion: "pdfs/cook-2018-lcp-chapter.pdf",
+    bibtex: `@incollection{cook2018lcp,
+  author    = {Cook, Svetlana V. and Sweet, Shayna J. and Lancaster, Alia and Pand{\\v z}a, Nick B. and Jackson, Scott R. and Pelzl, Eric and Gor, Kira and Doughty, Catherine J.},
+  title     = {Linguistic Correlates of Proficiency ({LCP}): At the intersection of testing and teaching},
+  booktitle = {Useful Assessment and Evaluation in Language Education},
+  editor    = {Davis, John McE. and others},
+  publisher = {Georgetown University Press},
+  address   = {Washington, D.C.},
+  year      = {2018}
+}`
+  },
+  {
+    title: "Tone",
+    authors: "Pelzl, E., Zhang, H.",
+    venue: "In I. Kecskes & Y. Zhao (Eds.), Development and Use of Chinese as a Second Language. Cambridge University Press",
+    year: "forthcoming",
+    type: "chapter",
+    bibtex: `@incollection{pelzlzhang_tone,
+  author    = {Pelzl, Eric and Zhang, Hang},
+  title     = {Tone},
+  booktitle = {Development and Use of Chinese as a Second Language},
+  editor    = {Kecskes, Istvan and Zhao, Yang},
+  publisher = {Cambridge University Press},
+  note      = {Forthcoming}
+}`
+  }
+];
+/* ================== END OF EDITABLE PUBLICATIONS DATA ================== */
+
+const TYPE_LABELS = { journal: "Journal Article", chapter: "Book Chapter", other: "Other" };
+const MY_NAME = "Pelzl, E.";
+
+let activeType = "all";
+let searchQuery = "";
+
+/* SECURITY: escape ALL characters with special meaning in HTML so that
+   data can never be interpreted as markup. */
+function escapeHtml(str) {
+  return String(str)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
+/* SECURITY: only allow safe URL schemes in generated links. */
+function safeUrl(url) {
+  const u = String(url).trim();
+  if (/^https:\/\//i.test(u) || /^http:\/\//i.test(u)) return u;
+  // Allow simple relative paths (e.g., "pdfs/paper.pdf"), reject anything
+  // that looks like a scheme (e.g., "javascript:").
+  if (!/^[a-z][a-z0-9+.-]*:/i.test(u)) return u;
+  return "#";
+}
+
+function highlightMyName(authors) {
+  const escaped = escapeHtml(authors);
+  return escaped.split(MY_NAME).join('<span class="me">' + MY_NAME + '</span>');
+}
+
+function matchesSearch(pub) {
+  if (!searchQuery) return true;
+  const haystack = (pub.title + " " + pub.authors + " " + pub.venue).toLowerCase();
+  return haystack.includes(searchQuery);
+}
+
+function matchesType(pub) {
+  return activeType === "all" || pub.type === activeType;
+}
+
+function render() {
+  const list = document.getElementById("pub-list");
+  const noResults = document.getElementById("no-results");
+  list.innerHTML = "";
+
+  const visible = PUBLICATIONS.filter(p => matchesType(p) && matchesSearch(p));
+  noResults.style.display = visible.length ? "none" : "block";
+
+  // Group by year
+  const groups = {};
+  visible.forEach(p => {
+    const key = (typeof p.year === "string") ? "Forthcoming" : String(p.year);
+    (groups[key] = groups[key] || []).push(p);
+  });
+
+  const sortedKeys = Object.keys(groups).sort((a, b) => {
+    const va = a === "Forthcoming" ? Infinity : Number(a);
+    const vb = b === "Forthcoming" ? Infinity : Number(b);
+    return vb - va;
+  });
+
+  sortedKeys.forEach(key => {
+    const groupDiv = document.createElement("div");
+    groupDiv.className = "year-group";
+
+    const heading = document.createElement("div");
+    heading.className = "year-heading";
+    heading.textContent = key;
+    groupDiv.appendChild(heading);
+
+    groups[key].forEach(pub => {
+      const pubDiv = document.createElement("div");
+      pubDiv.className = "pub";
+
+      let linksHtml = '<span class="type-tag">' + TYPE_LABELS[pub.type] + '</span>';
+      if (pub.openAccess) {
+        linksHtml += '<span class="oa-tag">Open Access</span>';
+      }
+      if (pub.pdf) {
+        linksHtml += '<a class="pub-link" href="' + escapeHtml(safeUrl(pub.pdf)) + '" target="_blank" rel="noopener noreferrer">PDF</a>';
+      }
+      if (pub.authorsVersion) {
+        linksHtml += '<a class="pub-link" href="' + escapeHtml(safeUrl(pub.authorsVersion)) + '" target="_blank" rel="noopener noreferrer">Author&#39;s Version</a>';
+      }
+      if (pub.doi) {
+        linksHtml += '<a class="pub-link" href="' + escapeHtml(safeUrl(pub.doi)) + '" target="_blank" rel="noopener noreferrer">DOI / Link</a>';
+      }
+      if (pub.bibtex) {
+        linksHtml += '<button class="pub-link bibtex-toggle" type="button">BibTeX</button>';
+      }
+
+      pubDiv.innerHTML =
+        '<div class="pub-title">' + escapeHtml(pub.title) + '</div>' +
+        '<div class="pub-authors">' + highlightMyName(pub.authors) + '</div>' +
+        '<div class="pub-venue">' + escapeHtml(pub.venue) + '</div>' +
+        '<div class="pub-meta">' + linksHtml + '</div>' +
+        (pub.bibtex
+          ? '<div class="bibtex-block"><button class="copy-btn" type="button">Copy</button><pre>' + escapeHtml(pub.bibtex) + '</pre></div>'
+          : '');
+
+      // Wire up BibTeX toggle
+      const toggle = pubDiv.querySelector(".bibtex-toggle");
+      if (toggle) {
+        const block = pubDiv.querySelector(".bibtex-block");
+        toggle.addEventListener("click", () => {
+          block.classList.toggle("open");
+          toggle.textContent = block.classList.contains("open") ? "Hide BibTeX" : "BibTeX";
+        });
+
+        const copyBtn = pubDiv.querySelector(".copy-btn");
+        copyBtn.addEventListener("click", () => {
+          const text = pub.bibtex;
+          const done = () => {
+            copyBtn.textContent = "Copied!";
+            setTimeout(() => (copyBtn.textContent = "Copy"), 1500);
+          };
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(text).then(done).catch(() => fallbackCopy(text, done));
+          } else {
+            fallbackCopy(text, done);
+          }
+        });
+      }
+
+      groupDiv.appendChild(pubDiv);
+    });
+
+    list.appendChild(groupDiv);
+  });
+}
+
+function fallbackCopy(text, done) {
+  const ta = document.createElement("textarea");
+  ta.value = text;
+  ta.style.position = "fixed";
+  ta.style.opacity = "0";
+  document.body.appendChild(ta);
+  ta.select();
+  try { document.execCommand("copy"); done(); } catch (e) { /* ignore */ }
+  document.body.removeChild(ta);
+}
+
+/* Assemble the email link at runtime (anti-spam obfuscation). */
+(function () {
+  const link = document.getElementById("email-link");
+  const address = emailUser + "\u0040" + emailDomain; // \u0040 is "@"
+  link.href = "mailto:" + address;
+  link.style.display = "";
+})();
+
+// Search
+document.getElementById("search-box").addEventListener("input", function () {
+  searchQuery = this.value.trim().toLowerCase();
+  render();
+});
+
+// Type filters
+document.getElementById("filter-group").addEventListener("click", function (e) {
+  const btn = e.target.closest(".filter-btn");
+  if (!btn) return;
+  document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+  btn.classList.add("active");
+  activeType = btn.dataset.type;
+  render();
+});
+
+render();
+</script>
+
+</body>
+</html>
