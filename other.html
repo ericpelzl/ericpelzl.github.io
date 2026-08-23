@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<!--
+  =====================================================================
+  PLACEHOLDER PAGE — Eric Pelzl's site
+  =====================================================================
+  HOW TO USE:
+  1. Save a copy of this file as teaching.html, puzzle-lab.html, or
+     other.html (in the same folder as index.html).
+  2. Make two edits per copy, both marked "EDIT HERE" below:
+       a. The <title> in the <head>.
+       b. In the <nav>, move class="current" to the link for this page.
+  3. When you're ready to add real content, replace the
+     "under construction" section with your own.
+  =====================================================================
+-->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- SECURITY: block all external resources; only same-folder images and
+     the inline styles/scripts in this file are allowed to run/load. -->
+<meta http-equiv="Content-Security-Policy"
+      content="default-src 'none'; img-src 'self'; style-src 'unsafe-inline'; script-src 'unsafe-inline'; base-uri 'none'; form-action 'none'">
+
+<!-- SECURITY: limit referrer information sent to other sites. -->
+<meta name="referrer" content="strict-origin-when-cross-origin">
+
+<!-- EDIT HERE (a): change the page name to match this file, e.g.
+     "Teaching & Materials", "Puzzl-e Lab", or "Other Stuff". -->
+<title>Page Name — Eric Pelzl</title>
+
+<style>
+  :root {
+    --accent: #1f3a5f;        /* navy blue */
+    --accent-light: #eef2f7;
+    --accent-mid: #4a6a95;
+    --text: #26292e;
+    --text-soft: #5b6470;
+    --border: #e2e6ec;
+    --bg: #fcfcfd;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: Georgia, "Times New Roman", serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.65;
+    font-size: 17px;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+
+  .container {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 1.25rem;
+    width: 100%;
+  }
+
+  /* ---------- Header ---------- */
+  header {
+    background: #fff;
+    border-bottom: 3px solid var(--accent);
+    padding: 3rem 0 2.5rem;
+  }
+
+  .header-inner {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .photo-wrap {
+    flex-shrink: 0;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid var(--accent-light);
+    box-shadow: 0 2px 8px rgba(31,58,95,.12);
+    background: var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .photo-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .photo-fallback {
+    color: #fff;
+    font-size: 3rem;
+    letter-spacing: .05em;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    display: none;
+  }
+
+  .header-text h1 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: -.01em;
+    margin-bottom: .35rem;
+  }
+
+  .header-text .position {
+    font-size: 1.05rem;
+    color: var(--text-soft);
+    max-width: 34rem;
+    margin-bottom: .9rem;
+  }
+
+  .links {
+    display: flex;
+    gap: .6rem;
+    flex-wrap: wrap;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    font-size: .85rem;
+  }
+
+  .links a {
+    text-decoration: none;
+    color: var(--accent);
+    border: 1px solid var(--accent-mid);
+    border-radius: 4px;
+    padding: .3rem .75rem;
+    transition: background .15s, color .15s;
+  }
+
+  .links a:hover {
+    background: var(--accent);
+    color: #fff;
+  }
+
+  /* ---------- Navigation menu ---------- */
+  nav {
+    background: var(--accent);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    box-shadow: 0 2px 6px rgba(31,58,95,.18);
+  }
+
+  .nav-inner {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    font-size: .9rem;
+  }
+
+  .nav-inner a {
+    color: #fff;
+    text-decoration: none;
+    padding: .7rem 1.1rem;
+    transition: background .15s;
+    letter-spacing: .02em;
+  }
+
+  .nav-inner a:hover { background: var(--accent-mid); }
+
+  .nav-inner a.current {
+    background: rgba(255,255,255,.14);
+    font-weight: 600;
+  }
+
+  /* ---------- Main / under construction ---------- */
+  main {
+    padding: 2.5rem 0 1rem;
+    flex: 1;
+  }
+
+  .construction {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent-mid);
+    border-radius: 4px;
+    padding: 2.5rem 2rem;
+    text-align: center;
+    margin-top: 1rem;
+  }
+
+  .construction .icon {
+    font-size: 2.5rem;
+    margin-bottom: .75rem;
+  }
+
+  .construction h2 {
+    font-size: 1.45rem;
+    color: var(--accent);
+    margin-bottom: .5rem;
+  }
+
+  .construction p {
+    color: var(--text-soft);
+    max-width: 32rem;
+    margin: 0 auto;
+  }
+
+  /* ---------- Footer ---------- */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 1.5rem 0 2.5rem;
+    font-size: .85rem;
+    color: var(--text-soft);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    text-align: center;
+  }
+
+  /* ---------- Mobile ---------- */
+  @media (max-width: 600px) {
+    body { font-size: 16px; }
+    header { padding: 2rem 0 1.75rem; }
+    .header-inner { flex-direction: column; text-align: center; }
+    .header-text h1 { font-size: 1.7rem; }
+    .links { justify-content: center; }
+    .photo-wrap { width: 120px; height: 120px; }
+    .nav-inner { justify-content: center; font-size: .82rem; }
+    .nav-inner a { padding: .6rem .7rem; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container header-inner">
+    <div class="photo-wrap">
+      <img src="photo.jpg" alt="Photo of Eric Pelzl"
+           onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+      <span class="photo-fallback">EP</span>
+    </div>
+    <div class="header-text">
+      <h1>Eric Pelzl</h1>
+      <p class="position">Assistant Professor, Department of Language Science and Technology, The Hong Kong Polytechnic University</p>
+      <div class="links">
+        <a href="https://scholar.google.com/citations?user=bTfqrRcAAAAJ&amp;hl=en" target="_blank" rel="noopener noreferrer">Google Scholar</a>
+        <a href="https://orcid.org/0000-0001-8335-8814" target="_blank" rel="noopener noreferrer">ORCID</a>
+        <a href="cv.pdf" target="_blank" rel="noopener noreferrer">CV</a>
+        <!-- The email link is inserted here by JavaScript (anti-spam). -->
+        <a href="#" id="email-link" style="display:none;">Email</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- EDIT HERE (b): move class="current" to the link that matches
+     THIS file. E.g., if this file is teaching.html, the Teaching link
+     should have class="current" and the others should have no class. -->
+<nav>
+  <div class="container nav-inner">
+    <a href="index.html">Home &amp; Publications</a>
+    <a href="teaching.html" >Teaching &amp; Materials</a>
+    <a href="puzzle-lab.html">Puzzl-e Lab</a>
+    <a href="other.html" class="current">Other Stuff</a>
+  </div>
+</nav>
+
+<main class="container">
+
+  <section class="construction">
+    <div class="icon">&#128679;</div>
+    <h2>Under Construction</h2>
+    <p>
+      This page is still being built. Please check back soon &mdash; and in
+      the meantime, you can find my publications on the
+      <a href="index.html">home page</a>.
+    </p>
+  </section>
+
+</main>
+
+<footer>
+  <div class="container">
+    <span id="last-updated">Last updated: August 23, 2026</span>
+  </div>
+</footer>
+
+<script>
+"use strict";
+
+/* EMAIL SETTINGS (anti-spam): must match index.html. */
+const emailUser = "eric.pelzl";        // the part before the @
+const emailDomain = "polyu.edu.hk";    // the part after the @
+
+/* Assemble the email link at runtime (anti-spam obfuscation). */
+(function () {
+  const link = document.getElementById("email-link");
+  const address = emailUser + "\u0040" + emailDomain; // \u0040 is "@"
+  link.href = "mailto:" + address;
+  link.style.display = "";
+})();
+</script>
+
+</body>
+</html>
