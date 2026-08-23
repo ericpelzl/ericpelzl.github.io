@@ -29,15 +29,25 @@
      authorsVersion path matches the real file name. You can also paste
      a full URL (e.g., "https://puzzl-e/ericpelzl/pdfs/paper.pdf").
 
-  3. EMAIL: Search this file for "EMAIL SETTINGS" and edit the two
+  3. CV: Put your CV as "cv.pdf" in the same folder as this file. The
+     "CV" button in the header links to it. To change the file name or
+     location, search for 'href="cv.pdf"' below and edit it.
+
+  4. NAVIGATION MENU: Search for "NAV MENU" below. Each menu item links
+     to a separate HTML file (teaching.html, puzzle-lab.html,
+     other.html). Create those files in the same folder. Tip: copy this
+     same <nav> block into each of those pages so visitors can always
+     navigate back and forth.
+
+  5. EMAIL: Search this file for "EMAIL SETTINGS" and edit the two
      variables (emailUser and emailDomain). The address is split into
      pieces and assembled by JavaScript so spam bots scanning the raw
      HTML cannot easily harvest it.
 
-  4. PHOTO: Place a square-ish image named "photo.jpg" in the same
+  6. PHOTO: Place a square-ish image named "photo.jpg" in the same
      folder as this file. If missing, a monogram is shown instead.
 
-  5. LAST UPDATED: Search for "last-updated" and edit the date.
+  7. LAST UPDATED: Search for "last-updated" and edit the date.
 
   SECURITY NOTES (no action needed, just so you know):
   - The Content-Security-Policy meta tag below blocks all external
@@ -173,6 +183,38 @@
     color: #fff;
   }
 
+  /* ---------- Navigation menu ---------- */
+  nav {
+    background: var(--accent);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    box-shadow: 0 2px 6px rgba(31,58,95,.18);
+  }
+
+  .nav-inner {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    font-size: .9rem;
+  }
+
+  .nav-inner a {
+    color: #fff;
+    text-decoration: none;
+    padding: .7rem 1.1rem;
+    transition: background .15s;
+    letter-spacing: .02em;
+  }
+
+  .nav-inner a:hover { background: var(--accent-mid); }
+
+  .nav-inner a.current {
+    background: rgba(255,255,255,.14);
+    font-weight: 600;
+  }
+
   /* ---------- Sections ---------- */
   main { padding: 2.5rem 0 1rem; }
 
@@ -186,7 +228,7 @@
     margin-bottom: 1.25em;
     letter-spacing: .01em;
   }
-  
+
 
   .about p { max-width: 46rem; 
     margin-bottom: 1.25em;
@@ -200,22 +242,6 @@
     align-items: center;
     margin-bottom: 1.75rem;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-  }
-
-  #search-box {
-    flex: 1 1 240px;
-    padding: .55rem .8rem;
-    font-size: .95rem;
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    background: #fff;
-    color: var(--text);
-  }
-
-  #search-box:focus {
-    outline: none;
-    border-color: var(--accent-mid);
-    box-shadow: 0 0 0 3px rgba(31,58,95,.12);
   }
 
   .filter-group { display: flex; gap: .4rem; flex-wrap: wrap; }
@@ -386,6 +412,8 @@
     .photo-wrap { width: 120px; height: 120px; }
     .controls { flex-direction: column; align-items: stretch; }
     .filter-group { justify-content: center; }
+    .nav-inner { justify-content: center; font-size: .82rem; }
+    .nav-inner a { padding: .6rem .7rem; }
   }
 </style>
 </head>
@@ -404,12 +432,26 @@
       <div class="links">
         <a href="https://scholar.google.com/citations?user=bTfqrRcAAAAJ&amp;hl=en" target="_blank" rel="noopener noreferrer">Google Scholar</a>
         <a href="https://orcid.org/0000-0001-8335-8814" target="_blank" rel="noopener noreferrer">ORCID</a>
+        <a href="cv.pdf" target="_blank" rel="noopener noreferrer">CV</a>
         <!-- The email link is inserted here by JavaScript (anti-spam). -->
         <a href="#" id="email-link" style="display:none;">Email</a>
       </div>
     </div>
   </div>
 </header>
+
+<!-- NAV MENU: links to the other pages of the site. Create the files
+     teaching.html, puzzle-lab.html, and other.html in the same folder.
+     Copy this same <nav> block (and its CSS) into each of those pages,
+     moving the class="current" marker to whichever page it is on. -->
+<nav>
+  <div class="container nav-inner">
+    <a href="index.html" class="current">Home &amp; Publications</a>
+    <a href="teaching.html">Teaching &amp; Materials</a>
+    <a href="puzzle-lab.html">Puzzl-e Lab</a>
+    <a href="other.html">Other Stuff</a>
+  </div>
+</nav>
 
 <main class="container">
 
@@ -430,7 +472,6 @@
     <h2>Publications</h2>
 
     <div class="controls">
-      <input type="text" id="search-box" placeholder="Search by title, author, or venue…" aria-label="Search publications">
       <div class="filter-group" id="filter-group">
         <button class="filter-btn active" data-type="all">All</button>
         <button class="filter-btn" data-type="journal">Journal Articles</button>
@@ -440,7 +481,7 @@
     </div>
 
     <div id="pub-list"></div>
-    <p id="no-results">No publications match your search.</p>
+    <p id="no-results">No publications of this type.</p>
   </section>
 
 </main>
@@ -769,7 +810,6 @@ const TYPE_LABELS = { journal: "Journal Article", chapter: "Book Chapter", other
 const MY_NAME = "Pelzl, E.";
 
 let activeType = "all";
-let searchQuery = "";
 
 /* SECURITY: escape ALL characters with special meaning in HTML so that
    data can never be interpreted as markup. */
@@ -797,12 +837,6 @@ function highlightMyName(authors) {
   return escaped.split(MY_NAME).join('<span class="me">' + MY_NAME + '</span>');
 }
 
-function matchesSearch(pub) {
-  if (!searchQuery) return true;
-  const haystack = (pub.title + " " + pub.authors + " " + pub.venue).toLowerCase();
-  return haystack.includes(searchQuery);
-}
-
 function matchesType(pub) {
   return activeType === "all" || pub.type === activeType;
 }
@@ -812,7 +846,7 @@ function render() {
   const noResults = document.getElementById("no-results");
   list.innerHTML = "";
 
-  const visible = PUBLICATIONS.filter(p => matchesType(p) && matchesSearch(p));
+  const visible = PUBLICATIONS.filter(p => matchesType(p));
   noResults.style.display = visible.length ? "none" : "block";
 
   // Group by year
@@ -919,12 +953,6 @@ function fallbackCopy(text, done) {
   link.href = "mailto:" + address;
   link.style.display = "";
 })();
-
-// Search
-document.getElementById("search-box").addEventListener("input", function () {
-  searchQuery = this.value.trim().toLowerCase();
-  render();
-});
 
 // Type filters
 document.getElementById("filter-group").addEventListener("click", function (e) {
