@@ -11,7 +11,11 @@
      The logo is displayed at up to ~330px wide, matching its
      140x60 mm proportions. Until the file exists, a text fallback
      is shown in its place.
-  3. Each project is one <article class="project"> block. To add a
+  3. The "About the Lab" intro is the <section class="lab-intro">
+     block near the top of <main>. Edit the paragraph text there;
+     you can add more <p>...</p> paragraphs inside the block if
+     you need them.
+  4. Each project is one <article class="project"> block. To add a
      project, copy a whole block; to remove one, delete the block.
        - The square image is optional: if a project has no image,
          delete the <div class="project-image"> element entirely and
@@ -160,6 +164,22 @@
     margin-bottom: 1.75rem;
   }
 
+  /* ---------- Lab intro (bio) ---------- */
+  .lab-intro {
+    background: var(--accent-light);
+    border-radius: 4px;
+    padding: 1.5rem 1.75rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .lab-intro p {
+    color: var(--text);
+  }
+
+  .lab-intro p + p {
+    margin-top: .85rem;
+  }
+
   /* ---------- Project blocks ---------- */
   .project {
     background: #fff;
@@ -286,6 +306,7 @@
     .logo-fallback { font-size: 1.3rem; }
     .nav-inner { justify-content: center; font-size: .82rem; }
     .nav-inner a { padding: .6rem .7rem; }
+    .lab-intro { padding: 1.25rem 1.1rem; }
     .project { padding: 1.25rem 1.1rem; }
     .project-top { flex-direction: column; align-items: center; text-align: left; }
     .project-image { width: 150px; height: 150px; }
@@ -317,6 +338,16 @@
 </nav>
 
 <main class="container">
+
+  <!-- ================================================================
+       ABOUT THE LAB — introduction/bio. Edit the text below; add more
+       <p>...</p> paragraphs inside the section if you need them.
+       ================================================================ -->
+  <section class="lab-intro">
+    <p>
+      Welcome to the Puzzl-e Lab! We are Prof. Eric Pelzl and a team of graduate and undergraduate students from PolyU who use behavioral and neuro-imaging (EEG) methods to investigate bilingual speech perception and second language learning. Below is a list of the current lines of research being pursued by members of our lab.
+    </p>
+  </section>
 
   <h2 class="section-heading">Current Projects</h2>
 
