@@ -1,16 +1,26 @@
 <!DOCTYPE html>
 <!--
   =====================================================================
-  PLACEHOLDER PAGE — Eric Pelzl's site
+  PUZZL-E LAB PAGE — Eric Pelzl's site
   =====================================================================
   HOW TO USE:
-  1. Save a copy of this file as teaching.html, puzzle-lab.html, or
-     other.html (in the same folder as index.html).
-  2. Make two edits per copy, both marked "EDIT HERE" below:
-       a. The <title> in the <head>.
-       b. In the <nav>, move class="current" to the link for this page.
-  3. When you're ready to add real content, replace the
-     "under construction" section with your own.
+  1. Save this file as puzzle-lab.html (in the same folder as
+     index.html).
+  2. Put your lab logo in the same folder, named "lab-logo.png"
+     (or change the filename in the <img> tag in the header).
+     The logo is displayed at up to ~330px wide, matching its
+     140x60 mm proportions. Until the file exists, a text fallback
+     is shown in its place.
+  3. Each project is one <article class="project"> block. To add a
+     project, copy a whole block; to remove one, delete the block.
+       - The square image is optional: if a project has no image,
+         delete the <div class="project-image"> element entirely and
+         the text will fill the full width.
+       - Project images should be square (e.g., 400x400 px) and saved
+         in the same folder.
+       - Each report/publication is one <li> in the "outputs" list.
+         Use the <span class="output-type"> tag to label it, e.g.
+         "Publication", "Conference presentation", "In preparation".
   =====================================================================
 -->
 <html lang="en">
@@ -26,9 +36,7 @@
 <!-- SECURITY: limit referrer information sent to other sites. -->
 <meta name="referrer" content="strict-origin-when-cross-origin">
 
-<!-- EDIT HERE (a): change the page name to match this file, e.g.
-     "Teaching & Materials", "Puzzl-e Lab", or "Other Stuff". -->
-<title>Page Name — Eric Pelzl</title>
+<title>Puzzl-e Lab — Eric Pelzl</title>
 
 <style>
   :root {
@@ -63,84 +71,47 @@
     width: 100%;
   }
 
-  /* ---------- Header ---------- */
+  /* ---------- Header (centered lab logo) ---------- */
   header {
     background: #fff;
     border-bottom: 3px solid var(--accent);
-    padding: 3rem 0 2.5rem;
+    padding: 2.25rem 0 2rem;
   }
 
   .header-inner {
     display: flex;
-    align-items: center;
-    gap: 2rem;
-    flex-wrap: wrap;
-  }
-
-  .photo-wrap {
-    flex-shrink: 0;
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    overflow: hidden;
-    border: 3px solid var(--accent-light);
-    box-shadow: 0 2px 8px rgba(31,58,95,.12);
-    background: var(--accent);
-    display: flex;
-    align-items: center;
     justify-content: center;
   }
 
-  .photo-wrap img {
+  /* The logo is 140x60 mm (about a 7:3 landscape shape); it is shown
+     at up to 330px wide and scales down on narrow screens. */
+  .logo-wrap {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
+    max-width: 330px;
+  }
+
+  .logo-wrap img {
+    width: 100%;
+    height: auto;
     display: block;
   }
 
-  .photo-fallback {
-    color: #fff;
-    font-size: 3rem;
-    letter-spacing: .05em;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  /* Text fallback shown only if lab-logo.png fails to load. It has
+     the same 7:3 shape as the logo so the layout stays correct. */
+  .logo-fallback {
     display: none;
-  }
-
-  .header-text h1 {
-    font-size: 2.2rem;
-    font-weight: 700;
-    color: var(--accent);
-    letter-spacing: -.01em;
-    margin-bottom: .35rem;
-  }
-
-  .header-text .position {
-    font-size: 1.05rem;
-    color: var(--text-soft);
-    max-width: 34rem;
-    margin-bottom: .9rem;
-  }
-
-  .links {
-    display: flex;
-    gap: .6rem;
-    flex-wrap: wrap;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-    font-size: .85rem;
-  }
-
-  .links a {
-    text-decoration: none;
-    color: var(--accent);
-    border: 1px solid var(--accent-mid);
-    border-radius: 4px;
-    padding: .3rem .75rem;
-    transition: background .15s, color .15s;
-  }
-
-  .links a:hover {
+    width: 100%;
+    aspect-ratio: 7 / 3;
+    border-radius: 10px;
     background: var(--accent);
     color: #fff;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    font-weight: 700;
+    font-size: 1.6rem;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    letter-spacing: .02em;
   }
 
   /* ---------- Navigation menu ---------- */
@@ -175,37 +146,126 @@
     font-weight: 600;
   }
 
-  /* ---------- Main / under construction ---------- */
+  /* ---------- Main ---------- */
   main {
     padding: 2.5rem 0 1rem;
     flex: 1;
   }
 
-  .construction {
+  .section-heading {
+    font-size: 1.5rem;
+    color: var(--accent);
+    border-bottom: 2px solid var(--accent-light);
+    padding-bottom: .4rem;
+    margin-bottom: 1.75rem;
+  }
+
+  /* ---------- Project blocks ---------- */
+  .project {
     background: #fff;
     border: 1px solid var(--border);
     border-left: 3px solid var(--accent-mid);
     border-radius: 4px;
-    padding: 2.5rem 2rem;
+    padding: 1.5rem 1.75rem;
+    margin-bottom: 1.75rem;
+  }
+
+  .project-top {
+    display: flex;
+    gap: 1.5rem;
+    align-items: flex-start;
+  }
+
+  .project-image {
+    flex-shrink: 0;
+    width: 130px;
+    height: 130px;
+    border-radius: 6px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    background: var(--accent-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .project-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* Placeholder shown only if a project image fails to load. */
+  .image-fallback {
+    display: none;
+    color: var(--accent-mid);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    font-size: .75rem;
     text-align: center;
-    margin-top: 1rem;
+    padding: .5rem;
   }
 
-  .construction .icon {
-    font-size: 2.5rem;
-    margin-bottom: .75rem;
-  }
-
-  .construction h2 {
-    font-size: 1.45rem;
+  .project-text h3 {
+    font-size: 1.2rem;
     color: var(--accent);
-    margin-bottom: .5rem;
+    margin-bottom: .4rem;
   }
 
-  .construction p {
+  .project-text p {
+    color: var(--text);
+  }
+
+  /* ---------- Outputs (reports/publications) ---------- */
+  .outputs {
+    margin-top: 1.25rem;
+    border-top: 1px dashed var(--border);
+    padding-top: 1rem;
+  }
+
+  .outputs h4 {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    font-size: .8rem;
+    text-transform: uppercase;
+    letter-spacing: .08em;
     color: var(--text-soft);
-    max-width: 32rem;
-    margin: 0 auto;
+    margin-bottom: .6rem;
+  }
+
+  .outputs ul {
+    list-style: none;
+  }
+
+  .outputs li {
+    padding-left: 1.1rem;
+    position: relative;
+    margin-bottom: .55rem;
+    font-size: .95rem;
+  }
+
+  .outputs li::before {
+    content: "\2022";
+    color: var(--accent-mid);
+    position: absolute;
+    left: 0;
+  }
+
+  .output-type {
+    display: inline-block;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    font-size: .7rem;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+    color: var(--accent);
+    background: var(--accent-light);
+    border-radius: 3px;
+    padding: .1rem .45rem;
+    margin-right: .35rem;
+    vertical-align: middle;
+  }
+
+  .outputs a {
+    color: var(--accent);
   }
 
   /* ---------- Footer ---------- */
@@ -221,13 +281,14 @@
   /* ---------- Mobile ---------- */
   @media (max-width: 600px) {
     body { font-size: 16px; }
-    header { padding: 2rem 0 1.75rem; }
-    .header-inner { flex-direction: column; text-align: center; }
-    .header-text h1 { font-size: 1.7rem; }
-    .links { justify-content: center; }
-    .photo-wrap { width: 120px; height: 120px; }
+    header { padding: 1.75rem 0 1.5rem; }
+    .logo-wrap { max-width: 260px; }
+    .logo-fallback { font-size: 1.3rem; }
     .nav-inner { justify-content: center; font-size: .82rem; }
     .nav-inner a { padding: .6rem .7rem; }
+    .project { padding: 1.25rem 1.1rem; }
+    .project-top { flex-direction: column; align-items: center; text-align: left; }
+    .project-image { width: 150px; height: 150px; }
   }
 </style>
 </head>
@@ -235,72 +296,148 @@
 
 <header>
   <div class="container header-inner">
-    <div class="photo-wrap">
-      <img src="photo.jpg" alt="Photo of Eric Pelzl"
-           onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-      <span class="photo-fallback">EP</span>
-    </div>
-    <div class="header-text">
-      <h1>Eric Pelzl</h1>
-      <p class="position">Assistant Professor, Department of Language Science and Technology, The Hong Kong Polytechnic University</p>
-      <div class="links">
-        <a href="https://scholar.google.com/citations?user=bTfqrRcAAAAJ&amp;hl=en" target="_blank" rel="noopener noreferrer">Google Scholar</a>
-        <a href="https://orcid.org/0000-0001-8335-8814" target="_blank" rel="noopener noreferrer">ORCID</a>
-        <a href="cv.pdf" target="_blank" rel="noopener noreferrer">CV</a>
-        <!-- The email link is inserted here by JavaScript (anti-spam). -->
-        <a href="#" id="email-link" style="display:none;">Email</a>
-      </div>
+    <div class="logo-wrap">
+      <!-- Lab logo: save your logo as "lab-logo.svg" in the same
+           folder (or change the filename here). If the file is
+           missing, the text fallback below is shown instead. -->
+      <img src="lab-logo.svg" alt="Puzzl-e Lab logo"
+           onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+      <span class="logo-fallback">Puzzl&#8209;e Lab</span>
     </div>
   </div>
 </header>
 
-<!-- EDIT HERE (b): move class="current" to the link that matches
-     THIS file. E.g., if this file is teaching.html, the Teaching link
-     should have class="current" and the others should have no class. -->
 <nav>
   <div class="container nav-inner">
     <a href="index.html">Home &amp; Publications</a>
-    <a href="teaching.html" >Teaching &amp; Materials</a>
-    <a href="puzzle-lab.html"class="current">Puzzl-e Lab</a>
-    <a href="other.html" >Other Stuff</a>
+    <a href="teaching.html">Teaching &amp; Materials</a>
+    <a href="puzzle-lab.html" class="current">Puzzl&#8209;e Lab</a>
+    <a href="other.html">Other Stuff</a>
   </div>
 </nav>
 
 <main class="container">
 
-  <section class="construction">
-    <div class="icon">&#128679;</div>
-    <h2>Under Construction</h2>
-    <p>
-      This page is still being built. Please check back soon &mdash; and in
-      the meantime, you can find my publications on the
-      <a href="index.html">home page</a>.
-    </p>
-  </section>
+  <h2 class="section-heading">Current Projects</h2>
+
+  <!-- ================================================================
+       PROJECT 1 — placeholder. Copy this whole <article> block to add
+       more projects. If a project has no image, delete the entire
+       <div class="project-image"> element.
+       ================================================================ -->
+  <article class="project">
+    <div class="project-top">
+      <div class="project-image">
+        <!-- Square image (e.g., 400x400 px) saved in the same folder. -->
+        <img src="mr-wai.svg" alt="Project 1 image"
+             onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+        <span class="image-fallback">Project image<br>(project1.jpg)</span>
+      </div>
+      <div class="project-text">
+        <h3>Accented Chinese Speech</h3>
+        <p>
+          Second language speakers often have a noticeable accent. In this project,
+          we try to understand how listeners respond to accented speech and whether they can adapt to different types of accent (regional vs. foreign).
+        </p>
+      </div>
+    </div>
+    <div class="outputs">
+      <h4>Reports &amp; Publications</h4>
+      <ul>
+        <li>
+          <span class="output-type">In preparation</span>
+          Pelzl, E. &amp; Cui, Z. (in prep) An ERP investigation of adaptation to bad maps (mispronunciation) in L2 accented speech
+        </li>
+        <li>
+          <span class="output-type">Conference presentation</span>
+          Cui, Z. &amp; Pelzl, E. (2025) Native listeners tolerate tonal pronunciation errors (bad maps) in Cantonese-accented Mandarin. Poster presented at 3rd International Conference on Tone and Intonation, Herrsching, Germany.
+        </li>
+                <li>
+          <span class="output-type">Publication</span>
+         Pelzl, E., Carlson, M. T., Guo, T., Jackson, C. N., &amp; van Hell, J. G. (2021) Tuning out tone errors? Native listeners do not down-weight tones when hearing unsystematic tone errors in foreign-accented Mandarin. <em>Bilingualism: Language and Cognition.</em> 24(1), 215-222. 
+          <a href="https://doi.org/10.1017/S1366728920000280" target="_blank" rel="noopener noreferrer">[link]</a>
+        </li>
+      </ul>
+    </div>
+  </article>
+
+  <!-- ================================================================
+       PROJECT 2 — placeholder.
+       ================================================================ -->
+  <article class="project">
+    <div class="project-top">
+      <div class="project-image">
+        <img src="typefaces.svg" alt="Project 2 image"
+             onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+        <span class="image-fallback">Project image<br>(project2.jpg)</span>
+      </div>
+      <div class="project-text">
+        <h3>Learning Chinese Characters</h3>
+        <p>
+          Unlike learning an alphabet, which usually takes days, learning Chinese characters usually takes years. This project investigates whether using different typefaces (fonts) might help in a small way to the task of learning characters.
+        </p>
+      </div>
+    </div>
+    <div class="outputs">
+      <h4>Reports &amp; Publications</h4>
+      <ul>
+        <li>
+          <span class="output-type">In preparation</span>
+          Pelzl, E., Investigating the effects of variable typeface training with naïve learners of Chinese characters: improved generalization comes at a cost
+        </li>
+        <li>
+          <span class="output-type">Publication</span>
+          Pelzl, E., (2025). High variability orthographic training: Learning words in a logographic script through training with multiple typefaces.
+          <em>Psychonomic Bulletin and Review</em>
+          <a href="https://doi.org/10.3758/s13423-025-02646-0" target="_blank" rel="noopener noreferrer">[link]</a>
+        </li>
+      </ul>
+    </div>
+  </article>
+
+  <!-- ================================================================
+       PROJECT 3 — placeholder. This one has NO image, as an example of
+       a project block without the optional square image.
+       ================================================================ -->
+  <article class="project">
+    <div class="project-top">
+      <div class="project-text">
+        <h3>Learning Tones in a Second Language</h3>
+        <p>
+          This line of work examines how a person's language experience helps or hinders them in learning the tones of Mandarin. In the future, we hope to develop more effective ways to help people learn tones. 
+        </p>
+      </div>
+    </div>
+    <div class="outputs">
+      <h4>Selected Publications</h4>
+      <ul>
+        <li>
+         <span class="output-type">Publication</span>
+        Pelzl, E., Liu, J., &amp; Qi, C. (2022) Native language experience with tones influences both phonetic and lexical processes when acquiring a second tonal language. <em> Journal of Phonetics.</em> 95, 101197. 
+                  <a href="https://doi.org/10.1016/j.wocn.2022.101197" target="_blank" rel="noopener noreferrer">[link]</a>
+        </li>
+                <li>
+         <span class="output-type">Publication</span>
+        Pelzl, E., Lau, E., Guo, T., &amp; DeKeyser, R., C. (2021a) Even in the best-case scenario L2 learners have persistent difficulty perceiving and utilizing tones in Mandarin: Findings from behavioral and ERP experiments. <em>Studies in Second Language Acquisition.</em> 43(2), 268-296. 
+        <a href="https://doi.org/10.1017/S027226312000039X" target="_blank" rel="noopener noreferrer">[link]</a>
+        </li>
+                      <li>
+         <span class="output-type">Publication</span>
+        Pelzl, E. (2019). What makes perception of Mandarin tones difficult for second language learners: A non-technical review of evidence from psycholinguistic research. <em>Chinese as a Second Language.</em> 54(1), 51-78. 
+        <a href="https://doi.org/10.1075/csl.18009.pel" target="_blank" rel="noopener noreferrer">[link]</a>
+        </li>
+
+      </ul>
+    </div>
+  </article>
 
 </main>
 
 <footer>
   <div class="container">
-    <span id="last-updated">Last updated: August 23, 2026</span>
+    <span id="last-updated">Last updated: August 24, 2026</span>
   </div>
 </footer>
-
-<script>
-"use strict";
-
-/* EMAIL SETTINGS (anti-spam): must match index.html. */
-const emailUser = "eric.pelzl";        // the part before the @
-const emailDomain = "polyu.edu.hk";    // the part after the @
-
-/* Assemble the email link at runtime (anti-spam obfuscation). */
-(function () {
-  const link = document.getElementById("email-link");
-  const address = emailUser + "\u0040" + emailDomain; // \u0040 is "@"
-  link.href = "mailto:" + address;
-  link.style.display = "";
-})();
-</script>
 
 </body>
 </html>
