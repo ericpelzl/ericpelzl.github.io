@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 100 100">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+      }
+
+      .cls-2 {
+        font-family: MaShanZheng-Regular, 'Ma Shan Zheng';
+      }
+
+      .cls-2, .cls-3, .cls-4, .cls-5, .cls-6 {
+        fill: #fff;
+        font-size: 14px;
+      }
+
+      .cls-3 {
+        font-family: NotoSansSC-Regular-83pv-RKSJ-H, 'Noto Sans SC';
+      }
+
+      .cls-4 {
+        font-family: ARWeiBeiGBStd-BD-GBpc-EUC-H, 'AR WeiBeiGBStd';
+      }
+
+      .cls-5 {
+        font-family: LXGWWenKaiTC-Light, 'LXGW WenKai TC';
+        font-weight: 300;
+      }
+
+      .cls-6 {
+        font-family: HelloFont-ID-JianSong-GBpc-EUC-H, 'HelloFont ID JianSong';
+      }
+
+      .cls-7 {
+        fill: #231f20;
+        stroke: #231f20;
+        stroke-miterlimit: 10;
+      }
+
+      .cls-8 {
+        clip-path: url(#clippath);
+      }
+    </style>
+    <clipPath id="clippath">
+      <rect class="cls-1" width="100" height="100"/>
+    </clipPath>
+  </defs>
+  <g class="cls-8">
+    <rect class="cls-7" width="100" height="100"/>
+    <text class="cls-3" transform="translate(-.5 53.32)"><tspan x="0" y="0">人龙虫风水土火币瓜夫牛马羊木心手书王子衣金石田刀</tspan></text>
+    <text class="cls-4" transform="translate(-.5 102.5)"><tspan x="0" y="0">人龙虫风水土火币瓜夫牛马羊木心手书王子衣金石田刀</tspan></text>
+    <text class="cls-6" transform="translate(-.5 78.13)"><tspan x="0" y="0">人龙虫风水土火币瓜夫牛马羊木心手书王子衣金石田刀</tspan></text>
+    <text class="cls-5" transform="translate(-.5 6.5)"><tspan x="0" y="0">人龙虫风水土火币瓜夫牛马羊木心手书王子衣金石田刀</tspan></text>
+    <text class="cls-2" transform="translate(-.5 30.5)"><tspan x="0" y="0">人龙虫风水土火币瓜夫牛马羊木心手书王子衣金石田刀</tspan></text>
+  </g>
+</svg>
